@@ -35,7 +35,7 @@ Route::group(['middleware' => ['jwtAuth', 'roleAuth'], 'prefix' => 'dosen'], fun
     Route::get('nilai', [DosenController::class, 'nilai']);
     Route::put('nilai', [DosenController::class, 'nilaiStore']);
     Route::post('nilai', [DosenController::class, 'nilaiStore']);
-    Route::delete('nilai/delete/{nilai}', [DosenController::class, 'delete']);
+    Route::delete('nilai/delete', [DosenController::class, 'delete']);
 });
 
 Route::group(['middleware' => ['jwtAuth'], 'prefix' => 'mahasiswa'], function () {
