@@ -16,3 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('time', function () {
+    $input = 10000;
+
+    $totalDetik = $input;
+    $detik = intval($totalDetik % 60);
+
+    $totalMenit = intval($totalDetik / 60);
+    $menit = $totalMenit % 60;
+
+    $jam = intval($totalMenit / 60);
+    $format = $jam . ' jam ' . $menit . ' menit ' . $detik . ' detik';
+
+    return $format;
+});

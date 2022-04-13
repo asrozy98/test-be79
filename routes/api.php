@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Dosen\DosenController;
+use App\Http\Controllers\Api\Dosen\NilaiController;
+use App\Http\Controllers\Api\Mahasiswa\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
+    Route::post('/mahasiswa/register', [AuthController::class, 'register']);
+    Route::post('/dosen/register', [AuthController::class, 'register']);
+    Route::post('/mahasiswa/login', [AuthController::class, 'login']);
+    Route::post('/dosen/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::post('/profile', [AuthController::class, 'profile']);
+});
+
+Route::group(['middleware' => ['jwtAuth', 'roleAuth'], 'prefix' => 'dosen'], function ($router) {
+    Route::get('profile', [AuthController::class, 'profile']);
+    Route::get('nilai', [DosenController::class, 'nilai']);
+    Route::put('nilai', [DosenController::class, 'nilaiStore']);
+    Route::delete('nilai/delete/{nilai}', [DosenController::class, 'delete']);
+});
+
+Route::group(['middleware' => ['jwtAuth'], 'prefix' => 'mahasiswa'], function ($router) {
+    Route::get('/', [MahasiswaController::class, 'indexNilai']);
+    Route::get('/list', [MahasiswaController::class, 'index']);
+    Route::get('profile', [AuthController::class, 'profile']);
+    Route::get('rata-rata', [NilaiController::class, 'average']);
+    Route::get('rata-rata/jurusan', [NilaiController::class, 'averageJurusan']);
 });
