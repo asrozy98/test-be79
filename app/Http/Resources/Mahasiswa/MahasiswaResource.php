@@ -15,16 +15,14 @@ class MahasiswaResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return [
-        //     'id' => $this->user_id,
-        //     'nim' => $this->nim,
-        //     'nama' => $this->nama,
-        //     'umur' => $this->umur(Carbon::now()->format('Y'), Carbon::parse($this->tanggal_lahir)->format('Y')),
-        //     'jurusan' => $this->jurusan,
-        //     'dosen' => $this->nilai->dosen->nama,
-        //     'matkul' => $this->matkul->nama_matkul,
-        //     'nilai' => $this->nilai->nilai,
-        // ];
+        return [
+            'id' => $this->user_id,
+            'nim' => $this->nim,
+            'nama' => $this->nama,
+            'umur' => $this->umur(Carbon::now()->format('Y'), Carbon::parse($this->tanggal_lahir)->format('Y')),
+            'tanggal_lahir' => $this->tanggal_lahir,
+            'jurusan' => $this->jurusan,
+        ];
     }
 
     public function umur($yearNow, $yearBirth)

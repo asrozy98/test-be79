@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Mahasiswa;
 
 use App\Http\Controllers\Controller;
 use App\Http\Repository\MahasiswaRepository;
+use App\Http\Resources\Mahasiswa\MahasiswaCollection;
 use App\Http\Resources\Nilai\NilaiAverageCollection;
 use App\Http\Response\BaseResponses;
 use App\Models\DataNilai;
@@ -14,7 +15,9 @@ class MahasiswaController extends Controller
     public function index()
     {
         $data = MahasiswaRepository::index();
-        return BaseResponses::status(200, $data);
+        $response = new MahasiswaCollection($data);
+
+        return BaseResponses::status(200, $response);
     }
 
     public function indexNilai(Request $request)

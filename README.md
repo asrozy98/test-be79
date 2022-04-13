@@ -5,3 +5,5 @@
 3.  Jalankan perintah composer install
 4.  Jalankan perintah php artisan serve
 5.  Jalankan perintah php artisan migrate:fresh --seed
+
+link postman: https://www.getpostman.com/collections/679c3dffb118ca1bd5a1
