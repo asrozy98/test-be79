@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 
 Route::get('time', function () {
-    $input = 10000;
+    $input = 20000;
 
     $totalDetik = $input;
     $detik = intval($totalDetik % 60);

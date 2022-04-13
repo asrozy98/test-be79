@@ -18,7 +18,7 @@ use App\Http\Controllers\Api\Mahasiswa\MahasiswaController;
 |
 */
 
-Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('/mahasiswa/register', [AuthController::class, 'register']);
     Route::post('/dosen/register', [AuthController::class, 'register']);
     Route::post('/mahasiswa/login', [AuthController::class, 'login']);
@@ -28,14 +28,17 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('/profile', [AuthController::class, 'profile']);
 });
 
-Route::group(['middleware' => ['jwtAuth', 'roleAuth'], 'prefix' => 'dosen'], function ($router) {
+Route::group(['middleware' => ['jwtAuth', 'roleAuth'], 'prefix' => 'dosen'], function () {
     Route::get('profile', [AuthController::class, 'profile']);
+    Route::post('import', [DosenController::class, 'importMahasiswa']);
+    Route::put('import', [DosenController::class, 'importMahasiswa']);
     Route::get('nilai', [DosenController::class, 'nilai']);
     Route::put('nilai', [DosenController::class, 'nilaiStore']);
+    Route::post('nilai', [DosenController::class, 'nilaiStore']);
     Route::delete('nilai/delete/{nilai}', [DosenController::class, 'delete']);
 });
 
-Route::group(['middleware' => ['jwtAuth'], 'prefix' => 'mahasiswa'], function ($router) {
+Route::group(['middleware' => ['jwtAuth'], 'prefix' => 'mahasiswa'], function () {
     Route::get('/', [MahasiswaController::class, 'indexNilai']);
     Route::get('/list', [MahasiswaController::class, 'index']);
     Route::get('profile', [AuthController::class, 'profile']);

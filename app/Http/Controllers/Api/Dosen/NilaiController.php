@@ -14,9 +14,8 @@ class NilaiController extends Controller
 {
     public function average()
     {
-        $jurusan = false;
         $mahasiswa = Mahasiswa::with('nilai')->get();
-        $response = new AverageCollection($mahasiswa, $jurusan);
+        $response = new AverageCollection($mahasiswa);
 
         return BaseResponses::status(200, $response);
     }

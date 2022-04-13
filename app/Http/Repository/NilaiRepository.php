@@ -16,7 +16,7 @@ class NilaiRepository
 
     public static function store($request)
     {
-        $nilai = DataNilai::created([
+        $nilai = DataNilai::create([
             'nim' => $request->nim,
             'matkul_id' => $request->matkul_id,
             'dosen_id' => Auth::user()->id,
